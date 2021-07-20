@@ -20,8 +20,7 @@ up the news story on each news outlet’s respective website and find an appropr
 - **Mobile:** Can be both a mobile app and website
 - **Story:**
 - **Market:** General news consumers like the ones stated in the description. If nice-to-have 
-              story # is achieved, the market can extend to people who want to see news only within 
-              their political sphere.
+              stories blacklist and RSS feeds are achieved, the market can extend to general consumers.
 - **Habit:** Reading the daily news
 - **Scope:**
 
@@ -32,16 +31,19 @@ up the news story on each news outlet’s respective website and find an appropr
 **Required Must-have Stories**
 
 * User can scroll through a timeline of articles grouped together by event
+    * Swipe to hide, double tap to bookmark
 * Select an event to see all the articles on that event
+* Sign up/Log in/out of the app
+* Bookmark/follow events
 
 **Optional Nice-to-have Stories**
 
-* Bookmark/follow events
-    * Get notified when a new article is added to an event
+* Get notified when a new article is added to a bookmarked event
 * Users can report incorrect groupings made by the algorithm
     * point/rep system for those who have a good history of reports
 * Optionally filter out some of the default news sources
 * User can add their own RSS feed
+* Lazy-load content so the app is more responsive
 
 ### 2. Screen Archetypes
 
@@ -67,6 +69,7 @@ up the news story on each news outlet’s respective website and find an appropr
 **Flow Navigation** (Screen to Screen)
 
 * News Feed -> Articles in an event -> Detailed article view
+* User -> Log in/Sign up
 * User (Settings section) -> Blacklist/whitelist sources
 * User (Notification section) -> Blacklist/whitelist sources for notifications
 * User (Settings section) -> Add/Remove custom RSS feeds
@@ -115,12 +118,13 @@ Preferences Schema depends on stories implemented
 #### Home Feed, Bookmarks
 * (Read/GET) Get feed of events
 * (Read/GET) Get articles in a feed of events
-* (Create/POST) Bookmark an event
+* (Update/PUT) Bookmark an event
 * (Delete) Delete a bookmark
 * (Create/POST) Reporting an article
 
 #### User
 * (Update/PUT) Update a preference
+* (Create/PUT) Sign up
 
 #### Add RSS Feeds
 * (Create/POST) Add an RSS feed

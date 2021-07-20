@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.ReadArticleActivity">
+
+    <TextView
+        android:id="@+id/tvArticleTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        tools:text="Twitter is shutting down Fleets on August 3, citing low usage" />
+
+    <ImageView
+        android:id="@+id/ivArticleImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:srcCompat="@drawable/ic_launcher_background" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/tvArticleAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="By Ingrid Lunden" />
+
+        <TextView
+            android:id="@+id/tvArticlePublishDateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="July 14 at 5:49 ET" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvArticleContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:padding="8dp"
+        tools:text="Stories that disappear after a period of time are where the action is on social platforms like Snapchat, Instagram, WhatsApp and Facebook. But when it comes to Twitter, it looks the product itself is… [+3646 chars]" />
+
+</LinearLayout>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/tvEventTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        tools:text="How Internet and TV providers get away with jacking up your bill" />
+
+    <TextView
+        android:id="@+id/tvEventArticleCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvEventTitle"
+        android:layout_alignStart="@+id/tvEventTitle"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="8dp"
+        tools:text="4 Articles" />
+
+    <ImageButton
+        android:id="@+id/ibtnBookmark"
+        android:layout_width="33dp"
+        android:layout_height="29dp"
+        android:layout_below="@+id/tvEventTitle"
+        android:layout_alignEnd="@+id/tvEventTitle"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="0dp"
+        app:srcCompat="@android:drawable/btn_star_big_off" />
+</RelativeLayout>
