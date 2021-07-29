@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -39,7 +40,12 @@ public class ArticleListActivity extends AppCompatActivity {
         rvArticleList.setLayoutManager(new LinearLayoutManager(this));
 
         articles = new ArrayList<>();
-        ArticleAdapter adapter = new ArticleAdapter(this, articles);
+        ArticleAdapter adapter = new ArticleAdapter(this, articles, (view, article) -> {
+            Intent i = new Intent(ArticleListActivity.this, ReadArticleActivity.class);
+            i.putExtra(ReadArticleActivity.ARTICLE_KEY, article);
+            ArticleListActivity.this.startActivity(i);
+            overridePendingTransition(R.anim.slide_up, R.anim.no_anim);
+        });
         rvArticleList.setAdapter(adapter);
 
         Event event = getIntent().getExtras().getParcelable(EVENT_KEY);

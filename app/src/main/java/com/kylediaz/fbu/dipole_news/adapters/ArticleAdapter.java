@@ -21,12 +21,18 @@ import java.util.List;
 
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHolder> {
 
+    public interface OnClickListener {
+        void onClick(View view, Article article);
+    }
+
     private final Activity context;
     private final List<Article> articles;
+    private final OnClickListener onClickListener;
 
-    public ArticleAdapter(Activity context, List<Article> articles) {
+    public ArticleAdapter(Activity context, List<Article> articles, OnClickListener onClickListener) {
         this.context = context;
         this.articles = articles;
+        this.onClickListener = onClickListener;
     }
 
 
@@ -64,9 +70,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
             ivArticleImage = itemView.findViewById(R.id.ivArticleImage);
 
             itemView.setOnClickListener(arg0 -> {
-                Intent i = new Intent(context, ReadArticleActivity.class);
-                i.putExtra(ReadArticleActivity.ARTICLE_KEY, article);
-                context.startActivity(i);
+                onClickListener.onClick(itemView, article);
             });
         }
 
