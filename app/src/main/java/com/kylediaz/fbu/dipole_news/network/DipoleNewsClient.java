@@ -1,11 +1,13 @@
 package com.kylediaz.fbu.dipole_news.network;
 
+import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.google.android.material.progressindicator.BaseProgressIndicator;
+import com.kylediaz.fbu.dipole_news.BuildConfig;
 import com.kylediaz.fbu.dipole_news.models.Article;
 import com.kylediaz.fbu.dipole_news.models.Event;
 
@@ -25,6 +27,7 @@ import okhttp3.Response;
 public class DipoleNewsClient {
 
     private static DipoleNewsClient instance;
+
     public static DipoleNewsClient getInstance() {
         if (instance == null) {
             instance = new DipoleNewsClient();
@@ -34,7 +37,7 @@ public class DipoleNewsClient {
 
     private final static String TAG = DipoleNewsClient.class.toString();
 
-    private final static String REST_URL = "https://fbu-dipole-news.uc.r.appspot.com";
+    private final static String REST_URL = BuildConfig.DIPOLE_API_URL;
 
     private final AsyncHttpClient client = new AsyncHttpClient();
 

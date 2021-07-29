@@ -10,7 +10,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,7 +36,6 @@ public class Event implements Parcelable {
     private Date lastUpdatedAt;
 
     private String title;
-    private boolean titleManuallyGiven;
 
     private int[] articles;
 
@@ -66,10 +64,9 @@ public class Event implements Parcelable {
             throw new JSONException("Date was not in the correct format", e);
         }
         output.title = jsonObject.getString("title");
-        output.titleManuallyGiven = jsonObject.getBoolean("title_manually_given");
         JSONArray articlesJsonArray = jsonObject.getJSONArray("articles");
         if (articlesJsonArray != null) {
-            output.articles = JSONArrayToIntegetList(articlesJsonArray);
+            output.articles = JSONArrayToIntegerList(articlesJsonArray);
         }
         return output;
     }
@@ -78,7 +75,7 @@ public class Event implements Parcelable {
      * @param jsonArray JSONArray where all elements are parsable by .getInt()
      * @throws JSONException an element was not parsable by .getInt()
      */
-    private static int[] JSONArrayToIntegetList(JSONArray jsonArray) throws JSONException {
+    private static int[] JSONArrayToIntegerList(JSONArray jsonArray) throws JSONException {
         int[] output = new int[jsonArray.length()];
         for (int i = 0; i < jsonArray.length(); i++) {
             output[i] = jsonArray.getInt(i);
@@ -86,14 +83,13 @@ public class Event implements Parcelable {
         return output;
     }
 
+    // Event should only be instantiated through static function fromJSON
     private Event() {}
-
     private Event(@NotNull Parcel parcel) {
         id = parcel.readInt();
         createdAt = (Date) parcel.readSerializable();
         lastUpdatedAt = (Date) parcel.readSerializable();
         title = parcel.readString();
-        titleManuallyGiven = parcel.readBoolean();
         int articlesArraySize = parcel.readInt();
         articles = new int[articlesArraySize];
         parcel.readIntArray(articles);
@@ -110,7 +106,6 @@ public class Event implements Parcelable {
         dest.writeSerializable(createdAt);
         dest.writeSerializable(lastUpdatedAt);
         dest.writeString(title);
-        dest.writeBoolean(titleManuallyGiven);
         dest.writeInt(articles.length);
         dest.writeIntArray(articles);
     }
@@ -127,13 +122,8 @@ public class Event implements Parcelable {
         return lastUpdatedAt;
     }
 
-
     public String getTitle() {
         return title;
-    }
-
-    public boolean isTitleManuallyGiven() {
-        return titleManuallyGiven;
     }
 
     public int[] getArticles() {

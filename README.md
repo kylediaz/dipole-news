@@ -38,11 +38,7 @@ up the news story on each news outlet’s respective website and find an appropr
 
 **Optional Nice-to-have Stories**
 
-* Get notified when a new article is added to a bookmarked event
-* Users can report incorrect groupings made by the algorithm
-    * point/rep system for those who have a good history of reports
 * Optionally filter out some of the default news sources
-* User can add their own RSS feed
 * Lazy-load content so the app is more responsive
 
 ### 2. Screen Archetypes

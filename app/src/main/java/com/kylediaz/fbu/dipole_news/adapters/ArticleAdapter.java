@@ -1,10 +1,7 @@
 package com.kylediaz.fbu.dipole_news.adapters;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
-import android.content.Context;
 import android.content.Intent;
-import android.transition.Slide;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.kylediaz.fbu.dipole_news.R;
 import com.kylediaz.fbu.dipole_news.activities.ReadArticleActivity;
-import com.kylediaz.fbu.dipole_news.databinding.ActivityReadArticleBinding;
 import com.kylediaz.fbu.dipole_news.models.Article;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -79,7 +73,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         public void bind(Article article) {
             this.article = article;
 
-            tvArticleSource.setText(article.getSource());
+            tvArticleSource.setText(article.getPublisher());
             tvArticleTitle.setText(article.getTitle());
             Glide.with(context).load(article.getImageURL()).into(ivArticleImage);
 

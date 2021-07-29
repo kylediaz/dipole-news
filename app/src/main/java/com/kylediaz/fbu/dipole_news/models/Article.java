@@ -11,7 +11,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ public class Article implements Parcelable {
 
     private String title;
     private String author;
-    private String source;
+    private String publisher;
 
     private String URL;
     private String imageURL;
@@ -67,34 +66,34 @@ public class Article implements Parcelable {
         output.id = jsonObject.getInt("id");
         try {
             SimpleDateFormat ISOFormat = StandardDateFormats.getISODateFormat();
-            output.publishedAt = ISOFormat.parse(jsonObject.getString("publishedAt"));
-            output.addedAt = ISOFormat.parse(jsonObject.getString("addedAt"));
+            output.publishedAt = ISOFormat.parse(jsonObject.getString("published_at"));
+            output.addedAt = ISOFormat.parse(jsonObject.getString("added_at"));
         } catch (ParseException e) {
             throw new JSONException("Date was not in the correct format", e);
         }
         output.title = jsonObject.getString("title");
-        output.source = jsonObject.getJSONObject("source").getString("name");
+        output.publisher = jsonObject.getString("publisher");
         output.author = jsonObject.getString("author");
         output.URL = jsonObject.getString("url");
-        output.imageURL = jsonObject.getString("urlToImage");
+        output.imageURL = jsonObject.getString("image_url");
         output.description = jsonObject.getString("description");
         output.content = jsonObject.optString("content");
         return output;
     }
 
-    public Article() {}
-
+    // Article should only be instantiated through static function fromJSON
+    private Article() {}
     private Article(Parcel parcel) {
         id = parcel.readInt();
         publishedAt = (Date) parcel.readSerializable();
         addedAt = (Date) parcel.readSerializable();
         title = parcel.readString();
         author = parcel.readString();
-        source = parcel.readString();
+        publisher = parcel.readString();
         URL = parcel.readString();
         imageURL = parcel.readString();
         description = parcel.readString();
-        boolean contentIsNull = parcel.readBoolean();
+        boolean contentIsNull = parcel.readInt() == 1;
         if (!contentIsNull) {
             content = parcel.readString();
         }
@@ -112,11 +111,11 @@ public class Article implements Parcelable {
         dest.writeSerializable(addedAt);
         dest.writeString(title);
         dest.writeString(author);
-        dest.writeString(source);
+        dest.writeString(publisher);
         dest.writeString(URL);
         dest.writeString(imageURL);
         dest.writeString(description);
-        dest.writeBoolean(content == null);
+        dest.writeInt(content == null ? 1 : 0);
         if (content != null) {
             dest.writeString(content);
         }
@@ -142,8 +141,8 @@ public class Article implements Parcelable {
         return author;
     }
 
-    public String getSource() {
-        return source;
+    public String getPublisher() {
+        return publisher;
     }
 
     public String getURL() {
@@ -167,4 +166,3 @@ public class Article implements Parcelable {
     }
 
 }
-
