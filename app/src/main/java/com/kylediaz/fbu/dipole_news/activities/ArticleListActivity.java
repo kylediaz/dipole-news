@@ -1,24 +1,27 @@
 package com.kylediaz.fbu.dipole_news.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
-import com.klinker.android.sliding.SlidingActivity;
 import com.kylediaz.fbu.dipole_news.R;
 import com.kylediaz.fbu.dipole_news.adapters.ArticleAdapter;
+import com.kylediaz.fbu.dipole_news.adapters.ArticlePageAdapter;
 import com.kylediaz.fbu.dipole_news.models.Article;
 import com.kylediaz.fbu.dipole_news.models.Event;
 import com.kylediaz.fbu.dipole_news.network.DipoleNewsClient;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArticleListActivity extends SlidingActivity {
+public class ArticleListActivity extends FragmentActivity {
 
     private final static String TAG = ArticleListActivity.class.toString();
 
@@ -30,41 +33,43 @@ public class ArticleListActivity extends SlidingActivity {
 
     private List<Article> articles;
 
+    private SlidingUpPanelLayout slidingUpPanelLayout;
+
     private RecyclerView rvArticleList;
+    private ArticleAdapter articleListAdapter;
+
+    private ViewPager2 vpArticleReader;
+    private ArticlePageAdapter articlePageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_list);
 
-        Intent intent = getIntent();
-        if (intent.getBooleanExtra(SampleActivity.ARG_USE_EXPANSION, false)) {
-            expandFromPoints(
-                    intent.getIntExtra(SampleActivity.ARG_EXPANSION_LEFT_OFFSET, 0),
-                    intent.getIntExtra(SampleActivity.ARG_EXPANSION_TOP_OFFSET, 0),
-                    intent.getIntExtra(SampleActivity.ARG_EXPANSION_VIEW_WIDTH, 0),
-                    intent.getIntExtra(SampleActivity.ARG_EXPANSION_VIEW_HEIGHT, 0)
-            );
-        }
-
         rvArticleList = findViewById(R.id.rvArticleList);
+        vpArticleReader = findViewById(R.id.vpArticleReader);
+        slidingUpPanelLayout = findViewById(R.id.slidingPanelLayout);
+
         rvArticleList.setLayoutManager(new LinearLayoutManager(this));
 
         articles = new ArrayList<>();
-        ArticleAdapter adapter = new ArticleAdapter(this, articles, (view, article) -> {
-            Intent i = new Intent(ArticleListActivity.this, ReadArticleActivity.class);
-            i.putExtra(ReadArticleActivity.ARTICLE_KEY, article);
-            ArticleListActivity.this.startActivity(i);
-            overridePendingTransition(R.anim.slide_up, R.anim.no_anim);
+
+        articleListAdapter = new ArticleAdapter(this, articles, (position, view, article) -> {
+            showArticle(position);
         });
-        rvArticleList.setAdapter(adapter);
+        rvArticleList.setAdapter(articleListAdapter);
+        articlePageAdapter = new ArticlePageAdapter(this, articles);
+        vpArticleReader.setAdapter(articlePageAdapter);
 
         Event event = getIntent().getExtras().getParcelable(EVENT_KEY);
-
+        loadArticles(event);
+    }
+    private void loadArticles(Event event) {
         DipoleNewsClient.getInstance().getArticles(event, articles -> {
             if (articles != null) {
                 this.articles.addAll(articles);
-                adapter.notifyDataSetChanged();
+                articleListAdapter.notifyDataSetChanged();
+                articlePageAdapter.notifyDataSetChanged();
             } else {
                 Toast.makeText(this, "Unable to load articles", Toast.LENGTH_SHORT)
                         .show();
@@ -73,9 +78,18 @@ public class ArticleListActivity extends SlidingActivity {
         });
     }
 
+    private void showArticle(int position) {
+        vpArticleReader.setCurrentItem(position);
+        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+        Log.d(TAG, "ArticleAdapter onClick: " + position);
+    }
+
     @Override
-    protected void configureScroller(MultiShrinkScroller scroller) {
-        super.configureScroller(scroller);
-        scroller.setIntermediateHeaderHeightRatio(1);
+    public void onBackPressed() {
+        if (slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
+            slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+        } else {
+            super.onBackPressed();
+        }
     }
 }

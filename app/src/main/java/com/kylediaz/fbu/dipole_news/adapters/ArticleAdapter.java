@@ -14,15 +14,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.kylediaz.fbu.dipole_news.R;
-import com.kylediaz.fbu.dipole_news.activities.ReadArticleActivity;
 import com.kylediaz.fbu.dipole_news.models.Article;
 
 import java.util.List;
 
+/**
+ * Adapter for articles in the RecyclerView in ArticleListActivity
+ */
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHolder> {
 
     public interface OnClickListener {
-        void onClick(View view, Article article);
+        void onClick(int position, View view, Article article);
     }
 
     private final Activity context;
@@ -45,8 +47,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ArticleAdapter.ViewHolder holder, int position) {
-        Article article = articles.get(position);
-        holder.bind(article);
+        holder.bind(position);
     }
 
     @Override
@@ -57,6 +58,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private Article article;
+        private int position;
 
         private TextView tvArticleSource;
         private TextView tvArticleTitle;
@@ -70,18 +72,17 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
             ivArticleImage = itemView.findViewById(R.id.ivArticleImage);
 
             itemView.setOnClickListener(arg0 -> {
-                onClickListener.onClick(itemView, article);
+                onClickListener.onClick(position, itemView, article);
             });
         }
 
-        public void bind(Article article) {
-            this.article = article;
+        public void bind(int position) {
+            this.article = articles.get(position);
+            this.position = position;
 
             tvArticleSource.setText(article.getPublisher());
             tvArticleTitle.setText(article.getTitle());
             Glide.with(context).load(article.getImageURL()).into(ivArticleImage);
-
-            Log.d("ArticleAdapter", "Loading article " + article.getTitle() + " into RV");
         }
 
     }

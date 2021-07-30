@@ -17,6 +17,9 @@ import com.kylediaz.fbu.dipole_news.models.Event;
 
 import java.util.List;
 
+/**
+ * Adapter for events in the RecyclerView in FeedFragment/event feed
+ */
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
 
     private final Context context;

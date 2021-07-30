@@ -14,12 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kylediaz.fbu.dipole_news.adapters.EventAdapter;
-import com.kylediaz.fbu.dipole_news.databinding.FragmentHomeBinding;
+import com.kylediaz.fbu.dipole_news.databinding.FragmentFeedBinding;
 
 public class FeedFragment extends Fragment {
 
     private FeedViewModel feedViewModel;
-    private FragmentHomeBinding binding;
+    private FragmentFeedBinding binding;
 
     private RecyclerView rvNewsFeed;
 
@@ -29,7 +29,7 @@ public class FeedFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         feedViewModel = new ViewModelProvider(this).get(FeedViewModel.class);
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentFeedBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         this.rvNewsFeed = binding.rvNewsFeed;
