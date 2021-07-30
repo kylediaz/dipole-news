@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 public class BookmarksViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
+    private final MutableLiveData<String> mText;
 
     public BookmarksViewModel() {
         mText = new MutableLiveData<>();

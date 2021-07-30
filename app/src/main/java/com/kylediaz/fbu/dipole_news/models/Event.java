@@ -39,9 +39,23 @@ public class Event implements Parcelable {
 
     private int[] articles;
 
+    // Event should only be instantiated through static function fromJSON
+    private Event() {
+    }
+
+    private Event(@NotNull Parcel parcel) {
+        id = parcel.readInt();
+        createdAt = (Date) parcel.readSerializable();
+        lastUpdatedAt = (Date) parcel.readSerializable();
+        title = parcel.readString();
+        int articlesArraySize = parcel.readInt();
+        articles = new int[articlesArraySize];
+        parcel.readIntArray(articles);
+    }
+
     public static List<Event> fromJSONArray(JSONArray jsonArray) throws JSONException {
         List<Event> output = new ArrayList<>(jsonArray.length());
-        for (int i = 0; i < jsonArray.length(); i ++) {
+        for (int i = 0; i < jsonArray.length(); i++) {
             output.add(Event.fromJSON(jsonArray.getJSONObject(i)));
         }
         return output;
@@ -81,18 +95,6 @@ public class Event implements Parcelable {
             output[i] = jsonArray.getInt(i);
         }
         return output;
-    }
-
-    // Event should only be instantiated through static function fromJSON
-    private Event() {}
-    private Event(@NotNull Parcel parcel) {
-        id = parcel.readInt();
-        createdAt = (Date) parcel.readSerializable();
-        lastUpdatedAt = (Date) parcel.readSerializable();
-        title = parcel.readString();
-        int articlesArraySize = parcel.readInt();
-        articles = new int[articlesArraySize];
-        parcel.readIntArray(articles);
     }
 
     @Override

@@ -21,7 +21,7 @@ public class Bookmark extends ParseObject {
     }
 
     /**
-     * @param userID The ID of the user who created the bookmark (ie currently signed in user)
+     * @param userID  The ID of the user who created the bookmark (ie currently signed in user)
      * @param eventID The ID of the event to be bookmarked
      */
     public Bookmark(int userID, int eventID) {

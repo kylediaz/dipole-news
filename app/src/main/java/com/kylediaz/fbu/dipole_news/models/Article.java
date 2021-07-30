@@ -19,21 +19,6 @@ import java.util.List;
 
 public class Article implements Parcelable {
 
-    private int id;
-
-    private Date publishedAt;
-    private Date addedAt;
-
-    private String title;
-    private String author;
-    private String publisher;
-
-    private String URL;
-    private String imageURL;
-
-    private String description;
-    private String content;
-
     public static final Creator<Article> CREATOR = new Creator<Article>() {
         @Override
         public Article createFromParcel(Parcel in) {
@@ -45,10 +30,40 @@ public class Article implements Parcelable {
             return new Article[size];
         }
     };
+    private int id;
+    private Date publishedAt;
+    private Date addedAt;
+    private String title;
+    private String author;
+    private String publisher;
+    private String URL;
+    private String imageURL;
+    private String description;
+    private String content;
+
+    // Article should only be instantiated through static function fromJSON
+    private Article() {
+    }
+
+    private Article(Parcel parcel) {
+        id = parcel.readInt();
+        publishedAt = (Date) parcel.readSerializable();
+        addedAt = (Date) parcel.readSerializable();
+        title = parcel.readString();
+        author = parcel.readString();
+        publisher = parcel.readString();
+        URL = parcel.readString();
+        imageURL = parcel.readString();
+        description = parcel.readString();
+        boolean contentIsNull = parcel.readInt() == 1;
+        if (!contentIsNull) {
+            content = parcel.readString();
+        }
+    }
 
     public static List<Article> fromJSONArray(JSONArray jsonArray) throws JSONException {
         List<Article> output = new ArrayList<>(jsonArray.length());
-        for (int i = 0; i < jsonArray.length(); i ++) {
+        for (int i = 0; i < jsonArray.length(); i++) {
             output.add(Article.fromJSON(jsonArray.getJSONObject(i)));
         }
         return output;
@@ -79,24 +94,6 @@ public class Article implements Parcelable {
         output.description = jsonObject.getString("description");
         output.content = jsonObject.optString("content");
         return output;
-    }
-
-    // Article should only be instantiated through static function fromJSON
-    private Article() {}
-    private Article(Parcel parcel) {
-        id = parcel.readInt();
-        publishedAt = (Date) parcel.readSerializable();
-        addedAt = (Date) parcel.readSerializable();
-        title = parcel.readString();
-        author = parcel.readString();
-        publisher = parcel.readString();
-        URL = parcel.readString();
-        imageURL = parcel.readString();
-        description = parcel.readString();
-        boolean contentIsNull = parcel.readInt() == 1;
-        if (!contentIsNull) {
-            content = parcel.readString();
-        }
     }
 
     @Override
@@ -157,7 +154,8 @@ public class Article implements Parcelable {
         return description;
     }
 
-    public @Nullable String getContent() {
+    public @Nullable
+    String getContent() {
         return content;
     }
 

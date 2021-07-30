@@ -2,12 +2,8 @@ package com.kylediaz.fbu.dipole_news.adapters;
 
 import android.util.Log;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Lifecycle;
+import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.kylediaz.fbu.dipole_news.fragments.article_reader.ArticleReaderFragment;
@@ -22,7 +18,7 @@ public class ArticlePageAdapter extends FragmentStateAdapter {
 
     private static final String TAG = ArticlePageAdapter.class.toString();
 
-    private List<Article> articles;
+    private final List<Article> articles;
 
     public ArticlePageAdapter(FragmentActivity fragmentActivity, List<Article> articles) {
         super(fragmentActivity);

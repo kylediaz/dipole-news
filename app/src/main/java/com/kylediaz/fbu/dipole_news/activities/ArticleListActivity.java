@@ -1,14 +1,12 @@
 package com.kylediaz.fbu.dipole_news.activities;
 
-import androidx.appcompat.widget.Toolbar;
+import android.os.Bundle;
+import android.widget.Toast;
+
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
-
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.kylediaz.fbu.dipole_news.R;
 import com.kylediaz.fbu.dipole_news.adapters.ArticleAdapter;
@@ -23,14 +21,13 @@ import java.util.List;
 
 public class ArticleListActivity extends FragmentActivity {
 
-    private final static String TAG = ArticleListActivity.class.toString();
-
-    // Intent parameters
     /**
      * Intent parameter key for the event this activity will show the articles for
      */
     public final static String EVENT_KEY = "event";
 
+    // Intent parameters
+    private final static String TAG = ArticleListActivity.class.toString();
     private List<Article> articles;
 
     private SlidingUpPanelLayout slidingUpPanelLayout;
@@ -64,6 +61,7 @@ public class ArticleListActivity extends FragmentActivity {
         Event event = getIntent().getExtras().getParcelable(EVENT_KEY);
         loadArticles(event);
     }
+
     private void loadArticles(Event event) {
         DipoleNewsClient.getInstance().getArticles(event, articles -> {
             if (articles != null) {
@@ -81,7 +79,6 @@ public class ArticleListActivity extends FragmentActivity {
     private void showArticle(int position) {
         vpArticleReader.setCurrentItem(position);
         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
-        Log.d(TAG, "ArticleAdapter onClick: " + position);
     }
 
     @Override

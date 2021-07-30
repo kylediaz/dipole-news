@@ -14,7 +14,7 @@ import java.util.List;
 
 public class FeedViewModel extends ViewModel {
 
-    private MutableLiveData<List<Event>> events;
+    private final MutableLiveData<List<Event>> events;
 
     public FeedViewModel() {
         events = new MutableLiveData<List<Event>>();

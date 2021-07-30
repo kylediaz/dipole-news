@@ -1,32 +1,26 @@
 package com.kylediaz.fbu.dipole_news.network;
 
-import android.os.Build;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
-import com.google.android.material.progressindicator.BaseProgressIndicator;
 import com.kylediaz.fbu.dipole_news.BuildConfig;
 import com.kylediaz.fbu.dipole_news.models.Article;
 import com.kylediaz.fbu.dipole_news.models.Event;
 
 import org.json.JSONException;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.function.Consumer;
 
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.Headers;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class DipoleNewsClient {
 
+    private final static String TAG = DipoleNewsClient.class.toString();
+    private final static String REST_URL = BuildConfig.DIPOLE_API_URL;
     private static DipoleNewsClient instance;
+    private final AsyncHttpClient client = new AsyncHttpClient();
 
     public static DipoleNewsClient getInstance() {
         if (instance == null) {
@@ -34,12 +28,6 @@ public class DipoleNewsClient {
         }
         return instance;
     }
-
-    private final static String TAG = DipoleNewsClient.class.toString();
-
-    private final static String REST_URL = BuildConfig.DIPOLE_API_URL;
-
-    private final AsyncHttpClient client = new AsyncHttpClient();
 
     /**
      * @param callback accepts List\<Event\> on  successful fetch, null otherwise
@@ -58,6 +46,7 @@ public class DipoleNewsClient {
                 }
                 callback.accept(events);
             }
+
             @Override
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
                 Log.e(TAG, "getFeed onFailure: " + response, throwable);
@@ -69,6 +58,7 @@ public class DipoleNewsClient {
     public void getArticles(Event event, Consumer<List<Article>> callback) {
         getArticles(event.getId(), callback);
     }
+
     public void getArticles(int eventID, Consumer<List<Article>> callback) {
         String PATH = "/articles/from-event";
         String url = REST_URL + PATH + "?id=" + eventID;
@@ -86,6 +76,7 @@ public class DipoleNewsClient {
                 }
                 callback.accept(articles);
             }
+
             @Override
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
                 Log.e(TAG, "getFeed onFailure: " + response, throwable);

@@ -20,7 +20,7 @@ public class ArticleReaderFragment extends Fragment {
 
     private static final String TAG = ArticleReaderFragment.class.toString();
 
-    private Article article;
+    private final Article article;
 
     private FragmentReadArticleBinding binding;
 

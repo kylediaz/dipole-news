@@ -1,8 +1,6 @@
 package com.kylediaz.fbu.dipole_news.adapters;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,20 +21,14 @@ import java.util.List;
  */
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHolder> {
 
-    public interface OnClickListener {
-        void onClick(int position, View view, Article article);
-    }
-
     private final Activity context;
     private final List<Article> articles;
     private final OnClickListener onClickListener;
-
     public ArticleAdapter(Activity context, List<Article> articles, OnClickListener onClickListener) {
         this.context = context;
         this.articles = articles;
         this.onClickListener = onClickListener;
     }
-
 
     @NonNull
     @Override
@@ -55,14 +47,18 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         return articles.size();
     }
 
+    public interface OnClickListener {
+        void onClick(int position, View view, Article article);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private Article article;
         private int position;
 
-        private TextView tvArticleSource;
-        private TextView tvArticleTitle;
-        private ImageView ivArticleImage;
+        private final TextView tvArticleSource;
+        private final TextView tvArticleTitle;
+        private final ImageView ivArticleImage;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

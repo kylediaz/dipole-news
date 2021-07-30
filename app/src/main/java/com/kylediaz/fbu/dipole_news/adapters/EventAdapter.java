@@ -52,9 +52,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
         private Event event;
 
-        private TextView tvEventTitle;
-        private TextView tvEventArticleCount;
-        private ImageButton ibtnBookmark;
+        private final TextView tvEventTitle;
+        private final TextView tvEventArticleCount;
+        private final ImageButton ibtnBookmark;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
