@@ -78,50 +78,21 @@ up the news story on each news outlet’s respective website and find an appropr
 
 ### Models
 
-Article
-| Property         | Type          | Description                       |
-|------------------|---------------|-----------------------------------|
-| \_id             | int           | unique id                         |
-| Title            | String        | Title of Article                  |
-| Author           | String        | Name of author                    |
-| Creation         | DateTime      | DateTime when article was created |
-| Content          | String        | Body of article                   |
-| ShortenedContent | String        | Shortened body of article         |
-| TitleVector      | Integer Array | Cache of vectorized title         |
-
-Event
-| Property           | Type                 | Description                                                      |
-|--------------------|----------------------|------------------------------------------------------------------|
-| \_id               | int                  | unique id                                                        |
-| Title              | String               | Title for the event                                              |
-| TitleManuallyGiven | Boolean              | Whether the automatically given title was manually overwritten   |
-| LastUpdated        | Date                 | DateTime of the last time a news article was added to this event |
-| Articles           | Article Schema Array | Articles in this event                                           |
-| AverageVector      | Integer Array        | Center value of all vectors of the articles in this event        |
-
-User
-| Property    | Type                | Description                       |
-|-------------|---------------------|-----------------------------------|
-| \_id        | int                 | unique id                         |
-| Email       | String              | Email of user                     |
-| Password    | String              | Hashed password                   |
-| Bookmarks   | Event ID Array      | IDs/Pointers of bookmarked events |
-| Preferences | Preference Schema   | User settings preferences         |
+<img src="doc/DB.png" width=600>
 
 Preferences Schema depends on stories implemented
 
 ### Networking
 #### Home Feed, Bookmarks
 * (Read/GET) Get feed of events
-* (Read/GET) Get articles in a feed of events
+* (Read/GET) Get articles in a feed of events (Preloaded in this activity)
 * (Update/PUT) Bookmark an event
 * (Delete) Delete a bookmark
-* (Create/POST) Reporting an article
+
+##### Article List
+* (Read/GET) Get full article
 
 #### User
-* (Update/PUT) Update a preference
-* (Create/PUT) Sign up
-
-#### Add RSS Feeds
-* (Create/POST) Add an RSS feed
-* (Delete) Delete an RSS feed
+* (Create/POST) Sign up
+* (Update/PUT) Log in
+* (Update/PUT) Log out
