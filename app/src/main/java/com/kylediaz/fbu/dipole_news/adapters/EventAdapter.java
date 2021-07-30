@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -54,13 +55,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
         private final TextView tvEventTitle;
         private final TextView tvEventArticleCount;
-        private final ImageButton ibtnBookmark;
+        private final ImageView ivBookmarkButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvEventTitle = itemView.findViewById(R.id.tvEventTitle);
             tvEventArticleCount = itemView.findViewById(R.id.tvEventArticleCount);
-            ibtnBookmark = itemView.findViewById(R.id.ibtnBookmark);
+            ivBookmarkButton = itemView.findViewById(R.id.ivBookmarkButton);
 
             itemView.setOnClickListener(arg0 -> {
                 Intent i = new Intent(context, ArticleListActivity.class);
