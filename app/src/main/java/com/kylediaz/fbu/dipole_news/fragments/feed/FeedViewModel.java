@@ -25,7 +25,7 @@ public class FeedViewModel extends ViewModel {
         return events;
     }
 
-    private void loadEvents() {
+    public void loadEvents() {
         events.setValue(new ArrayList<>());
         DipoleNewsClient.getInstance().getFeed(events -> {
             Log.d("FeedViewModel", events.toString());

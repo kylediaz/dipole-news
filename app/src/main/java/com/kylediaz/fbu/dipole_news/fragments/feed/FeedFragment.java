@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.kylediaz.fbu.dipole_news.adapters.EventAdapter;
 import com.kylediaz.fbu.dipole_news.databinding.FragmentFeedBinding;
@@ -18,6 +20,8 @@ public class FeedFragment extends Fragment {
 
     private FeedViewModel feedViewModel;
     private FragmentFeedBinding binding;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     private RecyclerView rvNewsFeed;
 
@@ -31,6 +35,7 @@ public class FeedFragment extends Fragment {
         View root = binding.getRoot();
 
         this.rvNewsFeed = binding.rvNewsFeed;
+        this.swipeRefreshLayout = binding.swipeContainer;
 
         eventAdapter = new EventAdapter(this.getContext(), feedViewModel.getEvents().getValue());
 
@@ -40,7 +45,14 @@ public class FeedFragment extends Fragment {
         rvNewsFeed.setAdapter(eventAdapter);
         rvNewsFeed.setLayoutManager(new LinearLayoutManager(rvNewsFeed.getContext()));
 
+        swipeRefreshLayout.setOnRefreshListener(() -> refresh());
+
         return root;
+    }
+
+    private void refresh() {
+        feedViewModel.loadEvents();
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
