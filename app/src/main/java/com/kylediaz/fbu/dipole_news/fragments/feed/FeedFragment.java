@@ -29,7 +29,7 @@ public class FeedFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        feedViewModel = new ViewModelProvider(this).get(FeedViewModel.class);
+        feedViewModel = createViewModel();
 
         binding = FragmentFeedBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -64,5 +64,12 @@ public class FeedFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    /*
+     * This method exists solely to be overrided in BookmarksFeedFragment
+     */
+    protected FeedViewModel createViewModel() {
+        return new ViewModelProvider(this).get(FeedViewModel.class);
     }
 }

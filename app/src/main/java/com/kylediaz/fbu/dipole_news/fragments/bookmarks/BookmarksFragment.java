@@ -6,30 +6,40 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
-import com.kylediaz.fbu.dipole_news.databinding.FragmentDashboardBinding;
+import com.kylediaz.fbu.dipole_news.R;
+import com.kylediaz.fbu.dipole_news.databinding.FragmentBookmarksBinding;
+import com.kylediaz.fbu.dipole_news.fragments.feed.FeedFragment;
+import com.kylediaz.fbu.dipole_news.network.DipoleNewsClient;
 
 public class BookmarksFragment extends Fragment {
 
-    private BookmarksViewModel dashboardViewModel;
-    private FragmentDashboardBinding binding;
+    private FragmentBookmarksBinding binding;
 
+    @Nullable
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                new ViewModelProvider(this).get(BookmarksViewModel.class);
-
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+                             @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = FragmentBookmarksBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        if (savedInstanceState == null) {
+            if (DipoleNewsClient.getInstance().userIsSignedIn()) {
+                switchToFragment(FeedFragment.class);
+            } else {
+                switchToFragment(BookmarksPlaceholderFragment.class);
+            }
+        }
 
         return root;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    private void switchToFragment(Class<? extends Fragment> c) {
+        getParentFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .add(R.id.fragment_container_view, c, null)
+                .commit();
     }
+
 }

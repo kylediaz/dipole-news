@@ -11,6 +11,8 @@ import com.kylediaz.fbu.dipole_news.network.DipoleNewsClient;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class FeedViewModel extends ViewModel {
 
@@ -27,11 +29,18 @@ public class FeedViewModel extends ViewModel {
 
     public void loadEvents() {
         events.setValue(new ArrayList<>());
-        DipoleNewsClient.getInstance().getFeed(events -> {
+        loadData(events -> {
             Log.d("FeedViewModel", events.toString());
             this.events.getValue().addAll(events);
             this.events.setValue(this.events.getValue()); // Do nothing but notify observers
         });
+    }
+
+    /*
+     * This method exists solely so it can be overrided by BookmarksFeedViewModel
+     */
+    protected void loadData(Consumer<List<Event>> consumer) {
+        DipoleNewsClient.getInstance().getFeed(consumer);
     }
 
 }

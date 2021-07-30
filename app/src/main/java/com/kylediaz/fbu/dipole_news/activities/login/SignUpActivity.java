@@ -15,6 +15,9 @@ import com.parse.ParseUser;
 
 import org.json.JSONArray;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText etSignUpUsername;
@@ -59,7 +62,7 @@ public class SignUpActivity extends AppCompatActivity {
         ParseUser user = new ParseUser();
         user.setUsername(username);
         user.setPassword(password);
-        user.put("bookmarks", new JSONArray());
+        user.put("bookmarks", new ArrayList<Integer>());
         user.signUpInBackground(e -> {
             if (e == null) {
                 Intent i = new Intent(SignUpActivity.this, MainActivity.class);
