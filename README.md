@@ -1,5 +1,7 @@
 # Dipole News
 
+[Link to backend server repo](https://github.com/kylediaz/dipole-news-server)
+
 ## Table of Contents
 1. [Overview](#Overview)
 1. [Product Spec](#Product-Spec)
@@ -44,15 +46,13 @@ up the news story on each news outlet’s respective website and find an appropr
 ### 2. Screen Archetypes
 
 * News Feed
-    * Gestures: Swipe to hide from view, double tap to add to bookmarks, etc.
+    * Gestures: Double tap to bookmark
 * Bookmarks
+* Article list
+    * Gestures: Swipe horizonally to switch article, swipe down to dismiss article reader
 * User
-    * Display optional rep points
-        * Optionally show "You have more points than X% of other users!"
+    * Sign up or Log in/out
     * Settings
-        * Turn notifications on/off
-        * Blacklist/Whitelist notifications from certain sources
-    * Optional custom RSS feeds
 
 ### 3. Navigation
 
@@ -66,9 +66,6 @@ up the news story on each news outlet’s respective website and find an appropr
 
 * News Feed -> Articles in an event -> Detailed article view
 * User -> Log in/Sign up
-* User (Settings section) -> Blacklist/whitelist sources
-* User (Notification section) -> Blacklist/whitelist sources for notifications
-* User (Settings section) -> Add/Remove custom RSS feeds
 
 ## Wireframes
 <img src="doc/wireframe1.jpg" width=600>
