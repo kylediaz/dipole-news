@@ -14,11 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dipolenews"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.login.SignUpActivity"></activity>
+        <activity android:name=".activities.PublisherBlacklistActivity"></activity>
+        <activity android:name=".activities.login.SignUpActivity" />
         <activity
             android:name=".activities.login.LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".activities.LaunchActivity">
+        <activity android:name=".activities.LaunchActivity" android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

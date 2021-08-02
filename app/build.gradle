@@ -19,7 +19,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "PARSE_APPLICATION_ID", apikeyProperties['PARSE_CLIENT_KEY'])
+        buildConfigField("String", "PARSE_APPLICATION_ID", apikeyProperties['PARSE_APPLICATION_ID'])
         buildConfigField("String", "PARSE_CLIENT_KEY", apikeyProperties['PARSE_CLIENT_KEY'])
         buildConfigField("String", "DIPOLE_API_URL", apikeyProperties['DIPOLE_API_URL'])
     }

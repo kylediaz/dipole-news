@@ -1,5 +1,6 @@
 package com.kylediaz.fbu.dipole_news.fragments.user;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.kylediaz.fbu.dipole_news.R;
+import com.kylediaz.fbu.dipole_news.activities.login.LoginActivity;
 import com.kylediaz.fbu.dipole_news.databinding.FragmentUserBinding;
 
 public class UserFragment extends Fragment {
@@ -24,6 +26,11 @@ public class UserFragment extends Fragment {
 
         binding = FragmentUserBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        binding.tvWelcomeMessage.setOnClickListener(arg0 -> {
+            Intent i = new Intent(UserFragment.this.getContext(), LoginActivity.class);
+            startActivity(i);
+        });
 
         if (savedInstanceState == null) {
             getActivity().getSupportFragmentManager()

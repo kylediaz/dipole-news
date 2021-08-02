@@ -16,6 +16,8 @@ import com.kylediaz.fbu.dipole_news.R;
 import com.kylediaz.fbu.dipole_news.activities.ArticleListActivity;
 import com.kylediaz.fbu.dipole_news.models.Event;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -42,6 +44,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull EventAdapter.ViewHolder holder, int position) {
         Event event = events.get(position);
         holder.bind(event);
+    }
+
+    public void sort(Comparator<Event> comparator) {
+        Collections.sort(events, comparator);
+        notifyDataSetChanged();
     }
 
     @Override

@@ -13,10 +13,17 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
 public class Event implements Parcelable {
+
+    public static final Comparator<Event> MOST_ARTICLES_COMPARATOR =
+            (o1, o2) -> o2.articles.length - o1.articles.length;
+
+    public static final Comparator<Event> LATEST_UPDATE_COMPARATOR =
+            (o1, o2) -> o2.lastUpdatedAt.compareTo(o1.lastUpdatedAt);
 
     public static final Creator<Event> CREATOR = new Creator<Event>() {
         @Override

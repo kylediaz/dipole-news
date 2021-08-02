@@ -2,6 +2,8 @@ package com.kylediaz.fbu.dipole_news.activities.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,10 +29,25 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        etLogInUsername = findViewById(R.id.etSignUpUsername);
-        etLogInPassword = findViewById(R.id.etSignUpPassword);
+        etLogInUsername = findViewById(R.id.etLogInUsername);
+        etLogInPassword = findViewById(R.id.etLogInPassword);
+
         btnLogIn = findViewById(R.id.btnLogIn);
+
         tvSwitchToSignUp = findViewById(R.id.tvSwitchToSignUp);
+
+        for (EditText et : new EditText[] {etLogInUsername, etLogInPassword}) {
+            et.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    updateButtonState();
+                }
+                @Override
+                public void afterTextChanged(Editable s) { }
+            });
+        }
 
         btnLogIn.setOnClickListener(arg0 -> attemptLogIn());
 
@@ -52,5 +69,12 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    private void updateButtonState() {
+        btnLogIn.setEnabled(!aFieldIsBlank());
+    }
+    private boolean aFieldIsBlank() {
+        return etLogInUsername.getText().length() == 0 || etLogInPassword.getText().length() == 0;
     }
 }

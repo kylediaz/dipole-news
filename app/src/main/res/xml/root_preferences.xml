@@ -1,34 +1,42 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/messages_header">
-
-        <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
-            app:useSimpleSummaryProvider="true" />
-
-        <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
-            app:useSimpleSummaryProvider="true" />
-
+    <PreferenceCategory android:title="General" android:iconSpaceReserved="false">
+        <Preference
+            android:key="blacklistPublishers"
+            android:title="Filter Publishers"
+            android:iconSpaceReserved="false">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:targetClass="my.notifier.ui.EditCoursesNamesActivity"
+                android:targetPackage="my.notifier.ui" />
+        </Preference>
     </PreferenceCategory>
-    <PreferenceCategory app:title="@string/sync_header">
-
-        <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title" />
-
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
-
+    <PreferenceCategory android:title="Notifications"></PreferenceCategory>
+    <PreferenceCategory android:title="Dipole News">
+        <Preference
+            android:key="blacklistPublishers"
+            android:title="Contact &amp; FAQ">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:targetClass="my.notifier.ui.EditCoursesNamesActivity"
+                android:targetPackage="my.notifier.ui" />
+        </Preference>
+        <Preference
+            android:key="blacklistPublishers"
+            android:title="Rate This App">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:targetClass="my.notifier.ui.EditCoursesNamesActivity"
+                android:targetPackage="my.notifier.ui" />
+        </Preference>
+        <Preference
+            android:key="blacklistPublishers"
+            android:title="Send App Feedback">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:targetClass="my.notifier.ui.EditCoursesNamesActivity"
+                android:targetPackage="my.notifier.ui" />
+        </Preference>
     </PreferenceCategory>
-
 </PreferenceScreen>
