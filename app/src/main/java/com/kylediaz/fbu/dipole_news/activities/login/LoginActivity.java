@@ -54,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         tvSwitchToSignUp.setOnClickListener(arg0 -> {
             Intent i = new Intent(LoginActivity.this, SignUpActivity.class);
             startActivity(i);
+            finish();
         });
     }
 

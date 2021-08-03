@@ -1,6 +1,8 @@
 package com.kylediaz.fbu.dipole_news.fragments.feed;
 
+import android.opengl.Visibility;
 import android.os.Bundle;
+import android.service.autofill.VisibilitySetterAction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,7 +66,7 @@ public class FeedFragment extends Fragment {
         eventAdapter = new EventAdapter(this.getContext(), feedViewModel.getEvents().getValue());
 
         feedViewModel.getEvents().observe(getViewLifecycleOwner(),
-                events -> eventAdapter.notifyDataSetChanged());
+                events -> onEventsUpdate());
 
         rvNewsFeed.setAdapter(eventAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(rvNewsFeed.getContext());
@@ -91,9 +93,17 @@ public class FeedFragment extends Fragment {
         return root;
     }
 
+    private void onEventsUpdate() {
+        boolean eventsIsEmpty = feedViewModel.getEvents().getValue().size() == 0;
+        Log.d(TAG, "empty: " + eventsIsEmpty);
+        binding.errorMessageContainer.setVisibility(eventsIsEmpty ? View.VISIBLE : View.GONE);
+        binding.rvNewsFeed.setVisibility(eventsIsEmpty ? View.GONE : View.VISIBLE);
+        eventAdapter.notifyDataSetChanged();
+    }
+
     private void refresh() {
         feedViewModel.loadEvents();
-        eventAdapter.notifyDataSetChanged();
+        onEventsUpdate();
         swipeRefreshLayout.setRefreshing(false);
     }
 

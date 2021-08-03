@@ -19,12 +19,7 @@ public class BookmarksFeedViewModel extends FeedViewModel {
 
     @Override
     protected void loadData(Consumer<List<Event>> consumer) {
-        try {
-            DipoleNewsClient.getInstance().getBookmarkedEvents(consumer);
-        } catch (NoRouteToHostException e) {
-            Log.e(TAG, "Error getting bookmarked events", e);
-            consumer.accept(null);
-        }
+        DipoleNewsClient.getInstance().getBookmarkedEvents(consumer);
     }
 
 }

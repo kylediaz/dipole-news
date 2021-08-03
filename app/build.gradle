@@ -61,4 +61,8 @@ dependencies {
     implementation 'com.github.parse-community.Parse-SDK-Android:parse:1.26.0'
 
     implementation 'com.sothree.slidinguppanel:library:3.4.0'
+
+    def room_version = "2.3.0"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
 }

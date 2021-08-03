@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kylediaz.fbu.dipole_news.R;
 import com.kylediaz.fbu.dipole_news.activities.ArticleListActivity;
 import com.kylediaz.fbu.dipole_news.models.Event;
+import com.kylediaz.fbu.dipole_news.network.DipoleNewsClient;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -74,6 +75,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                 Intent i = new Intent(context, ArticleListActivity.class);
                 i.putExtra("event", event);
                 context.startActivity(i);
+            });
+
+            ivBookmarkButton.setOnClickListener(arg0 -> {
+                DipoleNewsClient.getInstance().addBookmark(event.getId());
             });
         }
 

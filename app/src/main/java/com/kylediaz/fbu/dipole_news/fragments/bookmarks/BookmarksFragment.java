@@ -24,12 +24,10 @@ public class BookmarksFragment extends Fragment {
         binding = FragmentBookmarksBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        if (savedInstanceState == null) {
-            if (DipoleNewsClient.getInstance().userIsSignedIn()) {
-                switchToFragment(FeedFragment.class);
-            } else {
-                switchToFragment(BookmarksPlaceholderFragment.class);
-            }
+        if (DipoleNewsClient.getInstance().userIsSignedIn()) {
+            switchToFragment(BookmarksFeedFragment.class);
+        } else {
+            switchToFragment(BookmarksPlaceholderFragment.class);
         }
 
         return root;

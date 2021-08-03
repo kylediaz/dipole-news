@@ -15,6 +15,8 @@ import com.kylediaz.fbu.dipole_news.R;
 import com.kylediaz.fbu.dipole_news.activities.MainActivity;
 import com.parse.ParseUser;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -80,11 +82,12 @@ public class SignUpActivity extends AppCompatActivity {
         ParseUser user = new ParseUser();
         user.setUsername(username);
         user.setPassword(password);
-        user.put("bookmarks", new ArrayList<Integer>());
+        user.put("bookmarks", new JSONArray());
         user.signUpInBackground(e -> {
             if (e == null) {
                 Intent i = new Intent(SignUpActivity.this, MainActivity.class);
                 startActivity(i);
+                finish();
             } else {
                 Toast.makeText(this, "Error: " + e, Toast.LENGTH_LONG)
                         .show();

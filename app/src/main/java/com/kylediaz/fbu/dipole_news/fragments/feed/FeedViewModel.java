@@ -16,6 +16,8 @@ import java.util.function.Function;
 
 public class FeedViewModel extends ViewModel {
 
+    private static final String TAG = FeedViewModel.class.toString();
+
     private final MutableLiveData<List<Event>> events;
 
     public FeedViewModel() {
@@ -30,7 +32,6 @@ public class FeedViewModel extends ViewModel {
     public void loadEvents() {
         events.setValue(new ArrayList<>());
         loadData(events -> {
-            Log.d("FeedViewModel", events.toString());
             this.events.getValue().addAll(events);
             this.events.setValue(this.events.getValue()); // Do nothing but notify observers
         });

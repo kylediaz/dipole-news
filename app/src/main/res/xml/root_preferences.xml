@@ -1,10 +1,11 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:iconSpaceReserved="false">
 
     <PreferenceCategory android:title="General" android:iconSpaceReserved="false">
         <Preference
             android:key="blacklistPublishers"
-            android:title="Filter Publishers"
+            android:title="Add Filters"
             android:iconSpaceReserved="false">
             <intent
                 android:action="android.intent.action.VIEW"
@@ -12,7 +13,19 @@
                 android:targetPackage="my.notifier.ui" />
         </Preference>
     </PreferenceCategory>
-    <PreferenceCategory android:title="Notifications"></PreferenceCategory>
+    <PreferenceCategory android:title="Notifications">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="switch_preference_1"
+            android:summary="Get alerts on breaking news and major stories"
+            android:title="Breaking News Alerts" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="switch_preference_1"
+            android:summary="Get notified when a new article is added to a bookmarked event"
+            android:title="Updates" />
+    </PreferenceCategory>
     <PreferenceCategory android:title="Dipole News">
         <Preference
             android:key="blacklistPublishers"

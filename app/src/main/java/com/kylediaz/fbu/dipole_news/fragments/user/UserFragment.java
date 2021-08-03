@@ -14,6 +14,8 @@ import androidx.preference.PreferenceFragmentCompat;
 import com.kylediaz.fbu.dipole_news.R;
 import com.kylediaz.fbu.dipole_news.activities.login.LoginActivity;
 import com.kylediaz.fbu.dipole_news.databinding.FragmentUserBinding;
+import com.kylediaz.fbu.dipole_news.network.DipoleNewsClient;
+import com.parse.ParseUser;
 
 public class UserFragment extends Fragment {
 
@@ -27,9 +29,20 @@ public class UserFragment extends Fragment {
         binding = FragmentUserBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        binding.tvWelcomeMessage.setOnClickListener(arg0 -> {
-            Intent i = new Intent(UserFragment.this.getContext(), LoginActivity.class);
-            startActivity(i);
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser != null) {
+            binding.tvWelcomeMessage.setText("Welcome, " + currentUser.getUsername());
+            binding.tvSignOut.setVisibility(View.VISIBLE);
+        } else {
+            binding.tvWelcomeMessage.setOnClickListener(arg0 -> {
+                Intent i = new Intent(UserFragment.this.getContext(), LoginActivity.class);
+                startActivity(i);
+            });
+            binding.tvSignOut.setVisibility(View.GONE);
+        }
+
+        binding.tvSignOut.setOnClickListener(arg0 -> {
+            DipoleNewsClient.getInstance().logOut();
         });
 
         if (savedInstanceState == null) {
@@ -48,7 +61,7 @@ public class UserFragment extends Fragment {
         binding = null;
     }
 
-    public static class SettingsFragment extends PreferenceFragmentCompat {
+    private static class SettingsFragment extends PreferenceFragmentCompat {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);

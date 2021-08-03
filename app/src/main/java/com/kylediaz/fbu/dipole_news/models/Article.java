@@ -4,6 +4,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.Nullable;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import com.kylediaz.fbu.dipole_news.utils.StandardDateFormats;
 
@@ -17,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Entity(tableName = "article")
 public class Article implements Parcelable {
 
     public static final Creator<Article> CREATOR = new Creator<Article>() {
@@ -30,19 +34,48 @@ public class Article implements Parcelable {
             return new Article[size];
         }
     };
+
+    @PrimaryKey
     private int id;
+
+    @ColumnInfo(name = "published_at")
     private Date publishedAt;
+    @ColumnInfo(name = "added_at")
     private Date addedAt;
+    @ColumnInfo(name = "title")
     private String title;
+    @ColumnInfo(name = "author")
     private String author;
+    @ColumnInfo(name = "publisher")
     private String publisher;
+    @ColumnInfo(name = "url")
     private String URL;
+    @ColumnInfo(name = "image_url")
     private String imageURL;
+    @ColumnInfo(name = "description")
     private String description;
+    @ColumnInfo(name = "content")
     private String content;
 
-    // Article should only be instantiated through static function fromJSON
-    private Article() {
+    /**
+     * Constructor is public for Room, but Articles should only be constructed through fromJSON
+     */
+    public Article() {
+    }
+
+    public Article(int id, Date publishedAt, Date addedAt, String title, String author,
+                   String publisher, String URL, String imageURL, String description,
+                   String content) {
+        this.id = id;
+        this.publishedAt = publishedAt;
+        this.addedAt = addedAt;
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.URL = URL;
+        this.imageURL = imageURL;
+        this.description = description;
+        this.content = content;
     }
 
     private Article(Parcel parcel) {
@@ -121,38 +154,66 @@ public class Article implements Parcelable {
     public int getId() {
         return id;
     }
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Date getPublishedAt() {
         return publishedAt;
+    }
+    public void setPublishedAt(Date publishedAt) {
+        this.publishedAt = publishedAt;
     }
 
     public Date getAddedAt() {
         return addedAt;
     }
+    public void setAddedAt(Date addedAt) {
+        this.addedAt = addedAt;
+    }
 
     public String getTitle() {
         return title;
+    }
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getAuthor() {
         return author;
     }
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
     public String getPublisher() {
         return publisher;
+    }
+    public void setPublisher(String publisher) {
+
     }
 
     public String getURL() {
         return URL;
     }
+    public void setURL(String url) {
+        this.URL = URL;
+    }
 
     public String getImageURL() {
         return imageURL;
+    }
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public String getDescription() {
         return description;
     }
+    public void setDescription(String setDescription) {
+        this.description = description;
+    }
+
 
     public @Nullable
     String getContent() {

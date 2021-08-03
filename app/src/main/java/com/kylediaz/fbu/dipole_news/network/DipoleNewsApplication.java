@@ -1,7 +1,6 @@
 package com.kylediaz.fbu.dipole_news.network;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.kylediaz.fbu.dipole_news.BuildConfig;
 import com.kylediaz.fbu.dipole_news.models.Bookmark;
